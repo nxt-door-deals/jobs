@@ -23,14 +23,14 @@ async def fetch_expired_ads():
             api_prefix + "expired_ads", headers={"secret": job_secret}
         )
 
+        if len(expired_ads.json()) == 0:
+            await update_job_run_date(os.getenv("EXPIRED_ADS_JOB_ID"))
+
         if expired_ads.status_code == 403:
             return
 
         if expired_ads.json():
             return expired_ads.json()
-
-        await update_job_run_date(os.getenv("EXPIRED_ADS_JOB_ID"))
-        return
 
     except Exception:
         raise (Exception)
@@ -40,7 +40,7 @@ async def delete_expired_ads():
     try:
         ad_list = await fetch_expired_ads()
 
-        payload = {"ad_list": list(ad_list)}
+        payload = {"ad_list": ad_list}
 
         if ad_list:
             delete_status = await requests.delete(
