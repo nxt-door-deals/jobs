@@ -49,8 +49,8 @@ async def delete_expired_ads():
                 headers={"secret": job_secret},
             )
 
-        if delete_status.json() == "All expired ads deleted":
-            await update_job_run_date(os.getenv("EXPIRED_ADS_JOB_ID"))
+            if delete_status.json() == "All expired ads deleted":
+                await update_job_run_date(os.getenv("EXPIRED_ADS_JOB_ID"))
 
     except Exception:
         raise (Exception)

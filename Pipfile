@@ -5,13 +5,13 @@ verify_ssl = true
 
 [dev-packages]
 pre-commit = "*"
+black = "==21.10b0"
+flake8 = "*"
+isort = "*"
 
 [packages]
 requests-async = "*"
 python-dotenv = "*"
-black = "==21.10b0"
-flake8 = "*"
-isort = "*"
 
 [requires]
 python_version = "3.8"
